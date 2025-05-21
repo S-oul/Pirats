@@ -7,13 +7,9 @@ using UnityEngine.UIElements;
 [ExecuteInEditMode]
 public class TilingWater : MonoBehaviour
 {
-    #region OTHERS
 
     Transform _boat;
     bool _hasBoat = false;
-
-#endregion
-
 
     [Header("GENERATE")]
     public int widthSegments = 10; // Number of segments along the width of the plane
@@ -43,22 +39,18 @@ public class TilingWater : MonoBehaviour
 
         Mesh mesh = new Mesh();
 
-        // Calculate the total number of vertices and triangles
         int numVertices = (widthSegments + 1) * (lengthSegments + 1);
         int numTriangles = widthSegments * lengthSegments * 6;
 
-        // Create arrays to store vertices, UV coordinates, and triangles
         Vector3[] vertices = new Vector3[numVertices];
         Vector2[] uv = new Vector2[numVertices];
         int[] triangles = new int[numTriangles];
 
-        // Calculate the step size between each vertex along the width and length
         float widthStep = width / widthSegments;
         float lengthStep = length / lengthSegments;
 
         int index = 0;
 
-        // Generate vertices and UV coordinates
         for (int i = 0; i <= lengthSegments; i++)
         {
             for (int j = 0; j <= widthSegments; j++)
@@ -72,7 +64,6 @@ public class TilingWater : MonoBehaviour
         }
 
         index = 0;
-        // Generate triangles with inverted order
         for (int i = 0; i < lengthSegments; i++)
         {
             for (int j = 0; j < widthSegments; j++)

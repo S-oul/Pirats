@@ -6,7 +6,7 @@ public class ShipBehaviour : MonoBehaviour
     [SerializeField] private float _shipSpeed = 0f;
     [SerializeField] private float _shipMaxSpeed = 10f;
     
-    [ShowNonSerializedField] ShipHelpers.ShipState _shipState;
+    [ShowNonSerializedField] ShipHelpers.ShipState _shipState = ShipHelpers.ShipState.Anchored;
     
     
     
