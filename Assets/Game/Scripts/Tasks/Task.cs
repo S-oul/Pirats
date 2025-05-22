@@ -15,6 +15,9 @@ public abstract class Task : MonoBehaviour
     bool taskNeedsToBeDone = false;
 
     private StateMachine _piratOnTaskSM;
+    [SerializeField] bool _hasStarted = false;
+
+    public bool HasStarted { get => _hasStarted; set => _hasStarted = value; }
 
     private void Awake()
     {
@@ -33,20 +36,32 @@ public abstract class Task : MonoBehaviour
         _piratOnTaskSM = pirat;
         
         print($"{name} has Started");
-
+        _hasStarted = true;
 
         StartCoroutine(TaskTime());
+
+        _uiTask.Animator.SetTrigger(0);
     }
     public virtual void onEndTask()
     {
         print($"{name} has finished");
+        _hasStarted = false;
         _piratOnTaskSM.GoNextState();
         _piratOnTaskSM = null;
+        _uiTask.Animator.SetTrigger("Remove");
+
     }
 
     IEnumerator TaskTime()
     {
-        yield return new WaitForSeconds(timeToFinishTask);
+        float time = 0f;
+        while(time < timeToFinishTask)
+        {
+            time += Time.deltaTime;
+            _uiTask.Slider.value = time / timeToFinishTask;
+            yield return null;
+
+        }
         onEndTask();
     }
 }

@@ -15,8 +15,10 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     
     [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private TextMeshProUGUI _timeText;
-    private Button _assignButton; 
-    
+    private Button _assignButton;
+    private Slider _slider;
+    private Animator _animator;
+
     #region Accessor
     public string Title
     {
@@ -42,6 +44,8 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         get => _task;
         set => _task = value;
     }
+    public Slider Slider { get => _slider; set => _slider = value; }
+    public Animator Animator { get => _animator; set => _animator = value; }
 
     #endregion
 
@@ -49,6 +53,8 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     {
         _assignButton = GetComponentInChildren<Button>();
         _assignButton.onClick.AddListener(SendTaskToGameManager);
+        _slider = GetComponent<Slider>();
+        _animator = GetComponent<Animator>();
     }
 
     private void SendTaskToGameManager()

@@ -19,6 +19,10 @@ public class GotTo : State
 
     public override void StateUpdate()
     {
-        
+        if (Vector3.Distance(_agent.destination, transform.position) < .4f)
+        {
+            MyStateMachine.GoNextState();
+        }
+
     }
 }

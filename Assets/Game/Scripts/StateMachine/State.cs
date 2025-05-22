@@ -18,14 +18,14 @@ public abstract class State : MonoBehaviour
 
     public virtual void StateEnter()
     {
-        Debug.Log(this.GetType() + " Enter");
+        //Debug.Log(this.GetType() + " Enter");
         _hasStarted = true;
         this.enabled = true;
     }
 
     public virtual void StateExit()
     {
-        Debug.Log(this.GetType() + " Exit");
+        //Debug.Log(this.GetType() + " Exit");
         this.enabled = false;
 
     }

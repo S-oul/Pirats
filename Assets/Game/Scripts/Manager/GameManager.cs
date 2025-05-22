@@ -21,6 +21,7 @@ public class GameManager : Manager<GameManager>
         get => _queuePos;
         set => _queuePos = value;
     }
+    public List<StateMachine> Pirats { get => _pirats; set => _pirats = value; }
 
     #endregion
 

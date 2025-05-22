@@ -22,9 +22,10 @@ public class GotToTask : State
 
     public override void StateUpdate()
     {
-        if(_task && Vector3.Distance(_agent.destination,transform.position) < .4f)
+        if(_task && !_task.HasStarted && Vector3.Distance(_agent.destination,transform.position) < .4f)
         {
-            MyStateMachine.ChangeState(NextState);
+            _task.BeginTask(MyStateMachine);
+            //MyStateMachine.ChangeState(NextState);
         }
     }
 }
