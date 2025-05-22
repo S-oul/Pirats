@@ -17,6 +17,8 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     [SerializeField] private TextMeshProUGUI _timeText;
     private Button _assignButton;
     private Slider _slider;
+    
+    //I Know animator for UI are not the best, but it's not important for this Test 
     private Animator _animator;
 
     #region Accessor
@@ -64,24 +66,26 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     
 
     #region UI
+        public void OnDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position;
+        }
 
-    
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            //Set parent as "BG" (Horizontal Layout Group)
+            transform.parent = transform.parent.GetChild(0);
+        }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        transform.position = eventData.position;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        //Set parent as "BG" (Horizontal Layout Group)
-        transform.parent = transform.parent.GetChild(0);
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        //Set parent as Canvas
-        transform.parent = transform.parent.parent;
-    }
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            //Set parent as Canvas
+            transform.parent = transform.parent.parent;
+        }
+        
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     #endregion
 }
