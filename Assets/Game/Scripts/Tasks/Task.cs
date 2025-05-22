@@ -8,17 +8,17 @@ public abstract class Task : MonoBehaviour
 {
     [SerializeField] UITask _uiTask;
     [SerializeField] string taskName;
-    
+
     [SerializeField] float timeToFinishTask = 10f;
 
 
     bool taskNeedsToBeDone = false;
-    
-    private PiratBehaviour _piratOnTask;
+
+    private StateMachine _piratOnTaskSM;
 
     private void Awake()
     {
-        if(!_uiTask) Debug.LogError($"{name} has not been assigned to UI task");
+        if (!_uiTask) Debug.LogError($"{name} has not been assigned to UI task");
         else
         {
             _uiTask.Title = taskName;
@@ -27,20 +27,21 @@ public abstract class Task : MonoBehaviour
         }
     }
 
-    public virtual void BeginTask(PiratBehaviour pirate)
+    public virtual void BeginTask(StateMachine pirat)
     {
         taskNeedsToBeDone = false;
-        _piratOnTask = pirate;
-
+        _piratOnTaskSM = pirat;
+        
         print($"{name} has Started");
+
 
         StartCoroutine(TaskTime());
     }
     public virtual void onEndTask()
     {
         print($"{name} has finished");
-        _piratOnTask.NextTaskToDo = null;
-        _piratOnTask = null;
+        _piratOnTaskSM.GoNextState();
+        _piratOnTaskSM = null;
     }
 
     IEnumerator TaskTime()
@@ -48,4 +49,4 @@ public abstract class Task : MonoBehaviour
         yield return new WaitForSeconds(timeToFinishTask);
         onEndTask();
     }
-    }
+}

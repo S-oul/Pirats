@@ -6,7 +6,7 @@ public class GameManager : Manager<GameManager>
 {
     [SerializeField] private GameObject _ship;
     
-    [SerializeField] private List<PiratBehaviour> _pirats = new List<PiratBehaviour>();
+    [SerializeField] private List<StateMachine> _pirats = new List<StateMachine>();
     [SerializeField] private List<Transform> _queuePos = new List<Transform>();
     
     #region Accessors
@@ -23,6 +23,7 @@ public class GameManager : Manager<GameManager>
     }
 
     #endregion
+
     public override void Awake()
     {
         base.Awake();
@@ -32,7 +33,8 @@ public class GameManager : Manager<GameManager>
     }
     public void AssignTask(Task task)
     {
-        _pirats[0].GoToTarget(task);
+        _pirats[0].GetComponent<GotToTask>().Task = task;
+        _pirats[0].GoNextState();
         _pirats.RemoveAt(0);
     }
 }

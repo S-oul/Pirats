@@ -95,7 +95,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4574893948341255392}
-  - component: {fileID: 3728728775200204019}
   - component: {fileID: 7526633964433709476}
   m_Layer: 0
   m_Name: Pirat
@@ -120,19 +119,6 @@ Transform:
   - {fileID: 5959337101618334030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3728728775200204019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6055241588337935705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ebca1d870f64ed459ce223d5a06e930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 4
 --- !u!195 &7526633964433709476
 NavMeshAgent:
   m_ObjectHideFlags: 0
