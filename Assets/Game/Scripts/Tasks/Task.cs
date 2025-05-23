@@ -11,6 +11,7 @@ public abstract class Task : MonoBehaviour
 
     [SerializeField] float timeToFinishTask = 10f;
 
+    public Action onEndTask;
 
     bool taskNeedsToBeDone = false;
 
@@ -19,7 +20,7 @@ public abstract class Task : MonoBehaviour
 
     public bool HasStarted { get => _hasStarted; set => _hasStarted = value; }
 
-    private void Awake()
+    public virtual void Awake()
     {
         if (!_uiTask) Debug.LogError($"{name} has not been assigned to UI task");
         else
@@ -42,14 +43,14 @@ public abstract class Task : MonoBehaviour
 
         _uiTask.Animator.SetTrigger(0);
     }
-    public virtual void onEndTask()
+    public virtual void EndTask()
     {
         print($"{name} has finished");
         _hasStarted = false;
         _piratOnTaskSM.GoNextState();
         _piratOnTaskSM = null;
         _uiTask.Animator.SetTrigger("Remove");
-
+        onEndTask?.Invoke();
     }
 
     IEnumerator TaskTime()
@@ -62,6 +63,6 @@ public abstract class Task : MonoBehaviour
             yield return null;
 
         }
-        onEndTask();
+        EndTask();
     }
 }

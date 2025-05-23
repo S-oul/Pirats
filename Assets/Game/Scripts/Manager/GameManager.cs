@@ -4,13 +4,13 @@ using UnityEngine.Serialization;
 
 public class GameManager : Manager<GameManager>
 {
-    [SerializeField] private GameObject _ship;
+    [SerializeField] private ShipStats _ship;
     
     [SerializeField] private List<StateMachine> _pirats = new List<StateMachine>();
     [SerializeField] private List<Transform> _queuePos = new List<Transform>();
     
     #region Accessors
-    public GameObject Ship
+    public ShipStats Ship
     {
         get => _ship;
         private set => _ship = value;
@@ -28,8 +28,7 @@ public class GameManager : Manager<GameManager>
     public override void Awake()
     {
         base.Awake();
-        
-        Ship = GameObject.FindGameObjectWithTag("Boat");
+        if(!Ship) Ship = GameObject.FindGameObjectWithTag("Boat").GetComponent<ShipStats>();
 
     }
     public void AssignTask(Task task)

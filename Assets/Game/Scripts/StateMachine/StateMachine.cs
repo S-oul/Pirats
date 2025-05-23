@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour
@@ -29,12 +30,13 @@ public class StateMachine : MonoBehaviour
 
     public void ChangeState(State newState = null)
     {
-        if (newState == null) { newState = _allStates[0]; } // If null qo to default
+        if (newState is null) { newState = _allStates[0]; } // If null qo to default
         _currentState.StateExit();
         _currentState = newState;
         _currentState.StateEnter();
     }
 
+    [Button]
     public void GoNextState()
     {
         ChangeState(CurrentState.NextState);

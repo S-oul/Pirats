@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Manager<T> : MonoBehaviour where T : Component
@@ -13,5 +14,4 @@ public class Manager<T> : MonoBehaviour where T : Component
             return;
         }
     }
-
 }
