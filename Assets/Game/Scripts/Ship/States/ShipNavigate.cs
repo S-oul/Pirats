@@ -5,6 +5,7 @@ using UnityEngine.Splines;
 public class ShipNavigate : State
 {
     ShipStats _shipStats;
+    [SerializeField] float _piratHelpper;
 
     public override void StateInit(StateMachine sm)
     {
@@ -23,13 +24,18 @@ public class ShipNavigate : State
         _shipStats.DistancePercentage += _shipStats.ShipSpeed * Time.deltaTime / _shipStats.MySpline.GetLength();
 
         Vector3 currentPosition = _shipStats.MySpline.EvaluatePosition(_shipStats.DistancePercentage);
-
-        foreach (StateMachine pirat in GameManager.Instance.Pirats)
-        {
-            pirat.transform.position += currentPosition-transform.position ;
-        }
+        Vector3 movement = currentPosition - transform.position;
+        movement *= _piratHelpper;
         
         transform.position = currentPosition;
+        
+        // foreach (StateMachine pirat in GameManager.Instance.Pirats)
+        // {
+        //     pirat.transform.position += movement ;
+        //     
+        //     print("Moved pirat by : " + movement);
+        // }
+        
 
         if (_shipStats.DistancePercentage > 1f)
         {

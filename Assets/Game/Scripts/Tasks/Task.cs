@@ -6,9 +6,14 @@ using UnityEngine.Serialization;
 
 public abstract class Task : MonoBehaviour
 {
+    [Header("NavMesh")] 
+    [SerializeField] private Transform _ghostPosition;
+
+    [Header("UI")]
     [SerializeField] UITask _uiTask;
     [SerializeField] string taskName;
 
+    [Header("Others")]
     [SerializeField] float timeToFinishTask = 10f;
 
     public Action onEndTask;
@@ -18,8 +23,14 @@ public abstract class Task : MonoBehaviour
     private StateMachine _piratOnTaskSM;
     [SerializeField] bool _hasStarted = false;
 
+    #region Accessors
     public bool HasStarted { get => _hasStarted; set => _hasStarted = value; }
 
+    public Transform GhostPosition
+    {
+        get => _ghostPosition;
+    }
+    #endregion
     public virtual void Awake()
     {
         if (!_uiTask) Debug.LogError($"{name} has not been assigned to UI task");

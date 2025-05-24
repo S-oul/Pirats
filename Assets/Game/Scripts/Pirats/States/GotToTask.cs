@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class GotToTask : State
 {
-    NavMeshAgent _agent;
+    PiratController _controller;
 
     Task _task;
 
@@ -12,17 +12,18 @@ public class GotToTask : State
     public override void StateInit(StateMachine sm)
     {
         base.StateInit(sm);
-        _agent = GetComponent<NavMeshAgent>();
+        _controller = GetComponent<PiratController>();
     }
     public override void StateEnter()
     {
         base.StateEnter();
-        _agent.SetDestination(_task.transform.position);
+        _controller.PiratGhost.SetDestination(_task.GhostPosition.position);
     }
 
     public override void StateUpdate()
     {
-        if(_task && !_task.HasStarted && Vector3.Distance(_agent.destination,transform.position) < .4f)
+        print(Vector3.Distance(_task.transform.position,transform.position));
+        if(_task && !_task.HasStarted && Vector3.Distance(_task.transform.position,transform.position) < .4f)
         {
             _task.BeginTask(MyStateMachine);
             //MyStateMachine.ChangeState(NextState);

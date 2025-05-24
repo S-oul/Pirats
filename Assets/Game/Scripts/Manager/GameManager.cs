@@ -35,6 +35,7 @@ public class GameManager : Manager<GameManager>
     {
         _pirats[0].GetComponent<GotToTask>().Task = task;
         _pirats[0].GoNextState();
-        _pirats.RemoveAt(0);
+        // _pirats.RemoveAt(0);
+        
     }
 }

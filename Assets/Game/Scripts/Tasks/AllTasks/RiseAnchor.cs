@@ -7,9 +7,6 @@ public class RiseAnchor : Task
     public override void Awake()
     {
         base.Awake();
-        print(GameManager.Instance);
-        
-        print(GameManager.Instance.Ship);
         onEndTask += GameManager.Instance.Ship.ShipStateMachine.GoNextState;
     }
 
