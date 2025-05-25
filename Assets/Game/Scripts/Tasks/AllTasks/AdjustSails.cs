@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AdjustSails : Task
 {
+    [Header("Reward")]
     [SerializeField] private float _boostReward;
     
     public override void Awake()

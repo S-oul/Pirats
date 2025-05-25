@@ -22,6 +22,7 @@ public class ShipStats : MonoBehaviour
     
     [ShowNonSerializedField] ShipState _shipState = ShipState.Anchored;
     
+    
     #region Accessors
     
     public ShipState MyShipState
@@ -69,7 +70,6 @@ public class ShipStats : MonoBehaviour
         get => _shipAccel;
         set => _shipAccel = value;
     }
-
 
 
     #endregion

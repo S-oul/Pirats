@@ -8,7 +8,7 @@ public class WaitingLine : MonoBehaviour
     
     public List<Transform> _queuePos = new List<Transform>();
 
-    public bool AssignTask(Task task)
+    public bool TryAssignTask(Task task)
     {
         if (_availablePirats.Count > 0)
         {

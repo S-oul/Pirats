@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
+public class UITask : MonoBehaviour
 {
     [ShowNonSerializedField] private Task _task;
     
@@ -17,6 +17,7 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     [SerializeField] private TextMeshProUGUI _timeText;
     private Button _assignButton;
     private Slider _slider;
+    private Image _bgImage;
     
     //I Know animator for UI are not the best, but it's not important for this Test 
     private Animator _animator;
@@ -49,43 +50,44 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     public Slider Slider { get => _slider; set => _slider = value; }
     public Animator Animator { get => _animator; set => _animator = value; }
 
+    public Button AssignButton
+    {
+        get => _assignButton;
+        set => _assignButton = value;
+    }
+
+    public Image BgImage
+    {
+        get => _bgImage;
+        set => _bgImage = value;
+    }
+
     #endregion
 
     private void Awake()
     {
-        _assignButton = GetComponentInChildren<Button>();
-        _assignButton.onClick.AddListener(SendTaskToPirat);
+        AssignButton = GetComponentInChildren<Button>();
+        AssignButton.onClick.AddListener(SendTaskToPirat);
         _slider = GetComponent<Slider>();
         _animator = GetComponent<Animator>();
+        _bgImage = GetComponentInChildren<Image>();
     }
 
     private void SendTaskToPirat()
     {
-        _assignButton.interactable = !GameManager.Instance.Line.AssignTask(_task);
+        AssignButton.interactable = !GameManager.Instance.Line.TryAssignTask(_task);
     }
     
-
-    #region UI
-        public void OnDrag(PointerEventData eventData)
-        {
-            transform.position = eventData.position;
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            //Set parent as "BG" (Horizontal Layout Group)
-            transform.parent = transform.parent.GetChild(0);
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            //Set parent as Canvas
-            transform.parent = transform.parent.parent;
-        }
-        
+       
         public void Disable()
         {
             gameObject.SetActive(false);
         }
-    #endregion
+
+        public void SetScaleToOne()
+        {
+            GetComponent<RectTransform>().localScale = Vector3.one;
+            _assignButton.interactable = true;
+
+        }
 }

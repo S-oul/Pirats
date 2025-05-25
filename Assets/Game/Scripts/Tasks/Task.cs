@@ -18,9 +18,7 @@ public abstract class Task : MonoBehaviour
     [SerializeField] float timeToFinishTask = 10f;
 
     public Action onEndTask;
-
-    bool taskNeedsToBeDone = false;
-
+    
     private StateMachine _piratOnTaskSM;
     [SerializeField] bool _hasStarted = false;
 
@@ -49,9 +47,14 @@ public abstract class Task : MonoBehaviour
         
     }
 
+    public void EnableTask()
+    {
+        _uiTask.gameObject.SetActive(true);
+        _uiTask.Slider.value = 0;
+        _uiTask.Animator.SetTrigger("NewTask");
+    }
     public virtual void BeginTask(StateMachine pirat)
     {
-        taskNeedsToBeDone = false;
         _piratOnTaskSM = pirat;
         
         print($"{name} has Started");
@@ -59,7 +62,7 @@ public abstract class Task : MonoBehaviour
 
         StartCoroutine(TaskTime());
 
-        _uiTask.Animator.SetTrigger(0);
+        //_uiTask.Animator.SetTrigger(0);
     }
     public virtual void EndTask()
     {
