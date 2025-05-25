@@ -54,14 +54,14 @@ public class UITask : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     private void Awake()
     {
         _assignButton = GetComponentInChildren<Button>();
-        _assignButton.onClick.AddListener(SendTaskToGameManager);
+        _assignButton.onClick.AddListener(SendTaskToPirat);
         _slider = GetComponent<Slider>();
         _animator = GetComponent<Animator>();
     }
 
-    private void SendTaskToGameManager()
+    private void SendTaskToPirat()
     {
-        GameManager.Instance.AssignTask(_task);
+        _assignButton.interactable = !GameManager.Instance.Line.AssignTask(_task);
     }
     
 

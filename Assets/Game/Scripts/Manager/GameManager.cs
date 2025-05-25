@@ -5,9 +5,7 @@ using UnityEngine.Serialization;
 public class GameManager : Manager<GameManager>
 {
     [SerializeField] private ShipStats _ship;
-    
-    [SerializeField] private List<StateMachine> _pirats = new List<StateMachine>();
-    [SerializeField] private List<Transform> _queuePos = new List<Transform>();
+    [SerializeField] private WaitingLine _waitingLine;
     
     #region Accessors
     public ShipStats Ship
@@ -15,27 +13,18 @@ public class GameManager : Manager<GameManager>
         get => _ship;
         private set => _ship = value;
     }
-
-    public List<Transform> QueuePos
+    public WaitingLine Line
     {
-        get => _queuePos;
-        set => _queuePos = value;
+        get => _waitingLine;
     }
-    public List<StateMachine> Pirats { get => _pirats; set => _pirats = value; }
 
     #endregion
+    
 
     public override void Awake()
     {
         base.Awake();
         if(!Ship) Ship = GameObject.FindGameObjectWithTag("Boat").GetComponent<ShipStats>();
 
-    }
-    public void AssignTask(Task task)
-    {
-        _pirats[0].GetComponent<GotToTask>().Task = task;
-        _pirats[0].GoNextState();
-        // _pirats.RemoveAt(0);
-        
     }
 }

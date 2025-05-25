@@ -6,8 +6,9 @@ using UnityEngine.Serialization;
 
 public abstract class Task : MonoBehaviour
 {
+    [FormerlySerializedAs("_ghostPosition")]
     [Header("NavMesh")] 
-    [SerializeField] private Transform _ghostPosition;
+    [SerializeField] private Transform ghostTransform;
 
     [Header("UI")]
     [SerializeField] UITask _uiTask;
@@ -26,20 +27,26 @@ public abstract class Task : MonoBehaviour
     #region Accessors
     public bool HasStarted { get => _hasStarted; set => _hasStarted = value; }
 
-    public Transform GhostPosition
+    public Transform GhostTransform
     {
-        get => _ghostPosition;
+        get => ghostTransform;
     }
     #endregion
     public virtual void Awake()
     {
-        if (!_uiTask) Debug.LogError($"{name} has not been assigned to UI task");
-        else
+        if (!_uiTask)
         {
-            _uiTask.Title = taskName;
-            _uiTask.TimeTaskTakes = " Time : " + timeToFinishTask;
-            _uiTask.MyTask = this;
+            _uiTask = Instantiate(Resources.Load<GameObject>("UITask")).GetComponent<UITask>();
+            _uiTask.name = this.name + "UITask";
+            
+            _uiTask.transform.parent = FindAnyObjectByType<Canvas>().transform.GetChild(0);
+            //_uiTask.gameObject.SetActive(false);
         }
+        
+        _uiTask.Title = taskName;
+        _uiTask.TimeTaskTakes = " Time : " + timeToFinishTask;
+        _uiTask.MyTask = this;
+        
     }
 
     public virtual void BeginTask(StateMachine pirat)
