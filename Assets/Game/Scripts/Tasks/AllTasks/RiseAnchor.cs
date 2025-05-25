@@ -8,10 +8,12 @@ public class RiseAnchor : Task
     {
         base.Awake();
         onEndTask += GameManager.Instance.Ship.ShipStateMachine.GoNextState;
+        onEndTask += GameManager.Instance.onGameStart.Invoke;
     }
 
     private void OnDisable()
     {
         onEndTask -= GameManager.Instance.Ship.ShipStateMachine.GoNextState;
+
     }
 }

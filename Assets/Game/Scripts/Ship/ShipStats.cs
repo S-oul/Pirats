@@ -2,6 +2,7 @@ using System;
 using ShipHelpers;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Splines;
 
 public class ShipStats : MonoBehaviour
@@ -21,6 +22,9 @@ public class ShipStats : MonoBehaviour
     private StateMachine _shipStateMachine;
     
     [ShowNonSerializedField] ShipState _shipState = ShipState.Anchored;
+
+    [FormerlySerializedAs("_left")] [SerializeField] private Canons _canonLeft;
+    [SerializeField] private Canons _canonRight;
     
     
     #region Accessors
@@ -71,6 +75,17 @@ public class ShipStats : MonoBehaviour
         set => _shipAccel = value;
     }
 
+    public Canons CanonLeft
+    {
+        get => _canonLeft;
+        set => _canonLeft = value;
+    }
+
+    public Canons CanonRight
+    {
+        get => _canonRight;
+        set => _canonRight = value;
+    }
 
     #endregion
     private void Awake()
@@ -80,7 +95,6 @@ public class ShipStats : MonoBehaviour
 
         _shipStateMachine = GetComponent<StateMachine>();
     }
-    
 }
 
 namespace ShipHelpers
